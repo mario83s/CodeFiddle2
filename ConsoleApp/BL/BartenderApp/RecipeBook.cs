@@ -1,77 +1,36 @@
-﻿using System;
+﻿using ConsoleApp.BL.BartenderApp.Drinks;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp.BL.BartenderApp;
 
-public class RecipeBook : IRecipeBook
+internal class RecipeBook : IRecipeBook
 {
-    private Func<string> myInputprovider;
-    private Action<string> myOutputprovider;
-    private readonly Dictionary<string, Action> myRecipes;
+    private Func<string> Inputprovider;
+    private Action<string> Outputprovider;
+    private readonly List<ADrink> Drinks;
 
-    public RecipeBook(Func<string> inputprovider, Action<string> outputprovider)
+    internal RecipeBook(Func<string> inputprovider, Action<string> outputprovider)
     {
-        myInputprovider = inputprovider;
-        myOutputprovider = outputprovider;
+        Inputprovider = inputprovider;
+        Outputprovider = outputprovider;
 
-        myRecipes = new Dictionary<string, Action>
+        Drinks = new List<ADrink>()
         {
-            { BartenderConstants.beer, ServeBeer },
-            { BartenderConstants.juice, ServeJuice },
-            { BartenderConstants.coke, ServeCoke },
+            { new Juice(inputprovider, outputprovider) },
+            { new Coke(inputprovider, outputprovider ) },
+            { new Beer(inputprovider, outputprovider) },
         };
     }
 
-    public List<string> GetAvailableDrinkNames()
+    IEnumerable<string> IRecipeBook.GetAvailableDrinkNames()
     {
-        return new List<string>(myRecipes.Keys);
+        return from d in Drinks select d.DrinkName;
     }
 
     public void MakeDrink(string drinkName)
     {
-        myRecipes[drinkName].Invoke();
-    }
-
-    private void ServeBeer()
-    {
-        myOutputprovider("Please tell me your age:");
-        string input = myInputprovider();
-        int age;
-        if (!int.TryParse(input, out age))
-        {
-            myOutputprovider("Sorry, that is no valid age");
-            return;
-        }
-        if (!IsOverOrEqualLegalLimit(age))
-        {
-            myOutputprovider("Sorry, you have to be at least 18 years old to get a beer.");
-            return;
-        }
-        myOutputprovider(" -> 🍺 Enjoy your cold beer");
-    }
-
-    private bool IsOverOrEqualLegalLimit(int age)
-    {
-        return age >= BartenderConstants.legalAge;
-    }
-
-    private void ServeJuice()
-    {
-        myOutputprovider(" -> 🍸 Here you got joice fresh juice");
-    }
-
-    private void ServeCoke()
-    {
-        myOutputprovider("Do you want a cold coke? (Enter 'cold' if so)");
-        string input = myInputprovider();
-        if (input == BartenderConstants.cold)
-        {
-            myOutputprovider(" -> 🍸 Here you got your very cold coke");
-            return;
-        }
-        myOutputprovider(" -> 🍸 Here you got a nice warm coke");
+        ADrink candidate = Drinks.FirstOrDefault(d => string.Equals(d.DrinkName, drinkName, StringComparison.InvariantCultureIgnoreCase));
+        candidate?.Serve();
     }
 }

@@ -5,14 +5,14 @@ internal class BartenderApp : IApp
     IRecipeBook recipeBook;
     Bartender bartender;
 
-    public bool InitApp()
+    bool IApp.InitApp()
     {
         recipeBook = new RecipeBook(Console.ReadLine, Console.WriteLine);
         bartender = new Bartender(Console.ReadLine, Console.WriteLine, recipeBook);
         return true;
     }
 
-    public void RunApp()
+    void IApp.RunApp()
     {
         bool newDrink = true;
         while (newDrink)
@@ -21,7 +21,7 @@ internal class BartenderApp : IApp
         }
     }
 
-    public void ExitApp()
+    void IApp.ExitApp()
     {
         StandardAppExitRoutine.ExitApp("The bar is now closing ...");
     }

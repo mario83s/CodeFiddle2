@@ -4,6 +4,6 @@ namespace ConsoleApp.BL.BartenderApp;
 
 internal interface IRecipeBook
 {
-    List<string> GetAvailableDrinkNames();
+    IEnumerable<string> GetAvailableDrinkNames();
     void MakeDrink(string drinkName);
 }
