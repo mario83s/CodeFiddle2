@@ -4,26 +4,25 @@ namespace ConsoleApp.Tools.Extensions;
 
 internal static class FileInfoExtensions
 {
-    // TODO: instead of 2845 MB return 2.845 GB ... 1023 MB | 1 GB 1.001 GB, 1.002 GB, ...
-    internal static string GetFileSizeKBMBGBetc(this FileInfo fi)
+    static readonly double sizeKb = 1024.0d;
+    static readonly double sizeMb = sizeKb * sizeKb;
+    static readonly double sizeGb = sizeMb * sizeKb;
+    static readonly double sizeTerra = sizeGb * sizeKb;
+    static readonly double sizePeta = sizeTerra * sizeKb;
+
+    internal static string GetHumanReadableSize(this FileInfo fi)
     {
         var bytes = fi.Length;
 
-        if (bytes < 1024 * 10)
-        {
-            return $"{bytes} B";
-        }
-        var kb = bytes / 1024;
-        if (kb < 1024 * 10)
-        {
-            return $"{kb} KB";
-        }
-        var mb = kb / 1024;
-        if (mb < 1024 * 10)
-        {
-            return $"{mb} MB";
-        }
-        var gb = mb / 1024;
-        return $"{gb} GB";
+        if (bytes < sizeMb)
+            return (bytes / sizeKb).ToString("F") + " Kb";
+        if (bytes < sizeGb)
+            return (bytes / sizeMb).ToString("F") + " Mb";
+        if (bytes < sizeTerra)
+            return (bytes / sizeGb).ToString("F") + " Gb";
+        if (bytes < sizePeta)
+            return (bytes / sizePeta).ToString("F") + " Pb";
+
+        return $"{bytes} B";
     }
 }

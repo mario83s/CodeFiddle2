@@ -2,8 +2,8 @@
 
 internal class BartenderApp : IApp
 {
-    IRecipeBook recipeBook;
-    Bartender bartender;
+    private IRecipeBook recipeBook;
+    private Bartender bartender;
 
     bool IApp.InitApp()
     {

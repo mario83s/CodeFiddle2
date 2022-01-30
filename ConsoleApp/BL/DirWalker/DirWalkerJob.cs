@@ -80,7 +80,7 @@ namespace ConsoleApp.BL.DirWalker
         private void LogFiles(FileInfo f, int currentDepth)
         {
             string text = _setup.ShowFileSize ?
-                $"  file: {f.Name} [{f.GetFileSizeKBMBGBetc()}]" :
+                $"  file: {f.Name} [{f.GetHumanReadableSize()}]" :
                 $"  file: {f.Name}";
             IndentFile(text, currentDepth);
         }

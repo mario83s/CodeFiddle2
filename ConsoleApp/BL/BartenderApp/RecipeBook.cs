@@ -6,15 +6,10 @@ namespace ConsoleApp.BL.BartenderApp;
 
 internal class RecipeBook : IRecipeBook
 {
-    private Func<string> Inputprovider;
-    private Action<string> Outputprovider;
     private readonly List<ADrink> Drinks;
 
     internal RecipeBook(Func<string> inputprovider, Action<string> outputprovider)
     {
-        Inputprovider = inputprovider;
-        Outputprovider = outputprovider;
-
         Drinks = new List<ADrink>()
         {
             { new Juice(inputprovider, outputprovider) },
@@ -25,12 +20,12 @@ internal class RecipeBook : IRecipeBook
 
     IEnumerable<string> IRecipeBook.GetAvailableDrinkNames()
     {
-        return from d in Drinks select d.DrinkName;
+        return from drink in Drinks select drink.DrinkName;
     }
 
-    public void MakeDrink(string drinkName)
+    public void MakeDrink(string wantedDrinkName)
     {
-        ADrink candidate = Drinks.FirstOrDefault(d => string.Equals(d.DrinkName, drinkName, StringComparison.InvariantCultureIgnoreCase));
-        candidate?.Serve();
+        ADrink drinCandidate = Drinks.FirstOrDefault(drink => string.Equals(drink.DrinkName, wantedDrinkName, StringComparison.InvariantCultureIgnoreCase));
+        drinCandidate?.Serve();
     }
 }

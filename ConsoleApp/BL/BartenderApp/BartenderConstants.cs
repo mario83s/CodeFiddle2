@@ -4,5 +4,5 @@ internal class BartenderConstants
 {
     internal const string sitt = "sitt";
     internal const string cold = "cold";
-    internal const int legalAge = 18;
+    internal const int legalAgeForABeer = 18;
 }

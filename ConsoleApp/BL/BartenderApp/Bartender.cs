@@ -19,22 +19,22 @@ internal class Bartender
     {
         var availableDrinknames = string.Join(", ", myRecipeBook.GetAvailableDrinkNames());
         myOutputprovider($"What drink do you want? We serve: {availableDrinknames} or say 'sitt'");
-        string drinkName = myInputprovider();
-        if (drinkName == BartenderConstants.sitt)
+        string wantedDrinkName = myInputprovider();
+        if (wantedDrinkName == BartenderConstants.sitt)
         {
             return false;
         }
-        TryServeDrink(drinkName);
+        TryServeDrink(wantedDrinkName);
         return true;
     }
 
-    private void TryServeDrink(string drinkName)
+    private void TryServeDrink(string wantedDrinkName)
     {
-        if (!myRecipeBook.GetAvailableDrinkNames().Any(name => string.Equals(name, drinkName, StringComparison.InvariantCultureIgnoreCase)))
+        if (!myRecipeBook.GetAvailableDrinkNames().Any(name => string.Equals(name, wantedDrinkName, StringComparison.InvariantCultureIgnoreCase)))
         {
-            myOutputprovider($"Sorry, we don't provide the drink {drinkName}");
+            myOutputprovider($"Sorry, we don't provide the drink {wantedDrinkName}");
             return;
         }
-        myRecipeBook.MakeDrink(drinkName);
+        myRecipeBook.MakeDrink(wantedDrinkName);
     }
 }

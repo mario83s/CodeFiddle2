@@ -9,6 +9,6 @@ internal class Juice : ADrink
 
     override internal void Serve()
     {
-        Outputprovider(" -> 🍸 Here you got joice fresh juice");
+        Outputprovider(" ->  |_|  Here you got joice fresh juice");
     }
 }

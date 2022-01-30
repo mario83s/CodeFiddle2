@@ -13,9 +13,9 @@ internal class Coke : ADrink
         string input = Inputprovider();
         if (input == BartenderConstants.cold)
         {
-            Outputprovider(" -> 🍸 Here you got your very cold coke");
+            Outputprovider(" ->  |_|  Here you got your very cold coke");
             return;
         }
-        Outputprovider(" -> 🍸 Here you got a nice warm coke");
+        Outputprovider(" ->  |_|  Here you got a nice warm coke");
     }
 }

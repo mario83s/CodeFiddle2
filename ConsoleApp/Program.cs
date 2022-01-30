@@ -16,9 +16,9 @@ class Program
 {
     static void Main(string[] args)
     {
-        // RunDirWalkerApp();
+        RunDirWalkerApp();
         // RunTestApp();
-        RunBartenderApp();
+        // RunBartenderApp();
     }
 
     static void RunTestApp()

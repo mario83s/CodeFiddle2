@@ -9,24 +9,33 @@ internal class Beer : ADrink
 
     override internal void Serve()
     {
+        if (!CheckForValidAge())
+        {
+            return;
+        }
+        Outputprovider(" ->  |_|  Enjoy your cold beer");
+    }
+
+    private bool CheckForValidAge()
+    {
         Outputprovider("Please tell me your age:");
-        string input = Inputprovider();
+        string ageString = Inputprovider();
         int age;
-        if (!int.TryParse(input, out age))
+        if (!int.TryParse(ageString, out age))
         {
             Outputprovider("Sorry, that is no valid age");
-            return;
+            return false;
         }
         if (!IsOverOrEqualLegalLimit(age))
         {
             Outputprovider("Sorry, you have to be at least 18 years old to get a beer.");
-            return;
+            return false;
         }
-        Outputprovider(" -> 🍺 Enjoy your cold beer");
+        return true;
     }
 
     private bool IsOverOrEqualLegalLimit(int age)
     {
-        return age >= BartenderConstants.legalAge;
+        return age >= BartenderConstants.legalAgeForABeer;
     }
 }
