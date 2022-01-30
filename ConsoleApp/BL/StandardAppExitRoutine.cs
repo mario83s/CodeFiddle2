@@ -2,10 +2,10 @@
 
 internal class StandardAppExitRoutine
 {
-    internal static void ExitApp()
+    internal static void ExitApp(string exitmessage = "app is about to exit. press any key to exit ...")
     {
         Console.WriteLine();
-        Console.WriteLine("app is about to exit. press any key to exit ...");
+        Console.WriteLine(exitmessage);
         Console.ReadKey();
     }
 }
