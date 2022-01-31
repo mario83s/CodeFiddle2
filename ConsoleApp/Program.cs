@@ -8,6 +8,7 @@ using ConsoleApp.BL;
 using ConsoleApp.BL.TestApp;
 using ConsoleApp.BL.DirWalker;
 using ConsoleApp.BL.BartenderApp;
+using ConsoleApp.BL.DownloaderApp;
 
 // file-wide namespace without indention
 namespace ConsoleApp;
@@ -16,9 +17,10 @@ class Program
 {
     static void Main(string[] args)
     {
-        RunDirWalkerApp();
+        // RunDirWalkerApp();
         // RunTestApp();
         // RunBartenderApp();
+        RunDownloaderApp();
     }
 
     static void RunTestApp()
@@ -38,5 +40,12 @@ class Program
     {
         IApp bartender = new BartenderApp();
         bartender.Run();
+    }
+
+    static void RunDownloaderApp()
+    {
+        IApp downloaderApp = new DownloaderApp();
+        downloaderApp.Run();
+
     }
 }
